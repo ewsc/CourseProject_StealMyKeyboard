@@ -259,6 +259,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         return -1;
     }
 
+    HICON hIcon = static_cast<HICON>(::LoadImage(NULL, MAKEINTRESOURCE(32513), IMAGE_ICON, 32, 32, LR_DEFAULTCOLOR | LR_SHARED | LR_DEFAULTSIZE));
+    if (hIcon)
+    {
+        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+        SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+    }
+
+
     // Message loop
     MSG msg;
     while (GetMessage(&msg, nullptr, 0, 0))
