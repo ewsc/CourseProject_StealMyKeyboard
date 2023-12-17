@@ -254,23 +254,6 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/winsvc.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/mcx.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/imm.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ShlObj.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/commctrl.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/isguids.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/exdisp.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ocidl.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shtypes.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propsys.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/structuredquerycondition.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/objectarray.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/fstream \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
@@ -398,6 +381,7 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ctime \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/locale \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h \
@@ -411,6 +395,23 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/invoke.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlobj.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/commctrl.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/isguids.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/exdisp.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ocidl.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shtypes.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propsys.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/structuredquerycondition.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/objectarray.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h
