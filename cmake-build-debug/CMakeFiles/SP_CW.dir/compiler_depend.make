@@ -256,23 +256,6 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: X:/1Third_Year/CourseProject_StealMyKeyboard/
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/winsvc.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/mcx.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/imm.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlobj.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/commctrl.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/isguids.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/exdisp.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ocidl.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shtypes.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propsys.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/structuredquerycondition.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/objectarray.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/fstream \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
@@ -398,8 +381,7 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: X:/1Third_Year/CourseProject_StealMyKeyboard/
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++io.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fstream.tcc \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ctime \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/locale \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h \
@@ -413,10 +395,28 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: X:/1Third_Year/CourseProject_StealMyKeyboard/
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/invoke.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iomanip \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlwapi.h
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlobj.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/commctrl.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/isguids.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/exdisp.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ocidl.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shtypes.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propsys.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/structuredquerycondition.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/objectarray.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h
 
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/clzerointrin.h:
@@ -799,8 +799,6 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/prfchwintrin.h:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlwapi.h:
-
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/winsvc.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/combaseapi.h:
@@ -1023,32 +1021,6 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/s
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sec_api/stralign_s.h:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hash_bytes.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/stdio.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stdint.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h:
-
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/stdint.h:
@@ -1078,6 +1050,10 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/cxxabi_init_exception.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/typeinfo:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/knownfolders.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hash_bytes.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new:
 
@@ -1122,6 +1098,12 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/predefined_ops.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdint:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comcat.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/stdio.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stdint.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/localefwd.h:
 
@@ -1227,16 +1209,34 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/codecvt.h:
 
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/propkeydef.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h:
+
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fstream.tcc:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream:
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shldisp.h:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc:
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/utility:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array:
 
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream:
+
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/quoted_string.h:
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shlguid.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/docobj.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shobjidl.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h:
