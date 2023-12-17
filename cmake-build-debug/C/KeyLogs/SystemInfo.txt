@@ -1,0 +1,4 @@
+System Version: 10.0.22621 
+Processor Architecture: 8664
+Number of Processors: 8
+Username: alamo
