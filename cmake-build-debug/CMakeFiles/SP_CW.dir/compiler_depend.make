@@ -418,7 +418,13 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: X:/1Third_Year/CourseProject_StealMyKeyboard/
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ratio \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/limits \
   C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/parse_numbers.h \
-  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wininet.h
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wbemcli.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comutil.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdef.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/olectl.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comip.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/new.h \
+  C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdefsp.h
 
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/shtypes.h:
@@ -631,6 +637,8 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_iterator.h:
 
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/new.h:
+
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdint:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/pconfigintrin.h:
@@ -711,11 +719,15 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_classes.h:
 
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comip.h:
+
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/pshpack8.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/string:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++allocator.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comutil.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream_insert.h:
 
@@ -1183,8 +1195,6 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/p
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/bcrypt.h:
 
-C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wininet.h:
-
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/ncrypt.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h:
@@ -1246,3 +1256,11 @@ C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/1
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array:
 
 C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wbemcli.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdef.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/olectl.h:
+
+C:/Program\ Files/JetBrains/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdefsp.h:

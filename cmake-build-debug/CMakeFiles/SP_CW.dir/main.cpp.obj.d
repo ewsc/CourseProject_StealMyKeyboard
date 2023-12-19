@@ -416,4 +416,10 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ratio \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/limits \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/parse_numbers.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wininet.h
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/wbemcli.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comutil.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdef.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/olectl.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comip.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/new.h \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/x86_64-w64-mingw32/include/comdefsp.h

