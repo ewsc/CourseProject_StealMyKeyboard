@@ -400,4 +400,19 @@ CMakeFiles/SP_CW.dir/main.cpp.obj
  C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/x86_64-w64-mingw32/include/objectarray.h
  C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/x86_64-w64-mingw32/include/sherrors.h
  C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ctime
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/locale
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/time_members.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/messages_members.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_facets_nonio.tcc
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/locale_conv.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/unique_ptr.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/utility
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_relops.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/tuple
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/invoke.h
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt
+ C:/Program Files/JetBrains/CLion 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstring
 

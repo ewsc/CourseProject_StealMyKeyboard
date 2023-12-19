@@ -410,4 +410,5 @@ CMakeFiles/SP_CW.dir/main.cpp.obj: \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/array \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/uses_allocator.h \
  C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/invoke.h \
- C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/codecvt \
+ C:/PROGRA~1/JETBRA~1/CLion\ 2022.3/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstring
