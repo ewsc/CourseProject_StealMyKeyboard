@@ -1,3 +1,3 @@
-"C:\Program Files\JetBrains\CLion 2022.3\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\SP_CW.dir/objects.a
-"C:\PROGRA~1\JETBRA~1\CLion 2022.3\bin\mingw\bin\ar.exe" qc CMakeFiles\SP_CW.dir/objects.a @CMakeFiles\SP_CW.dir\objects1.rsp
-"C:\PROGRA~1\JETBRA~1\CLion 2022.3\bin\mingw\bin\g++.exe" -g -Wl,--whole-archive CMakeFiles\SP_CW.dir/objects.a -Wl,--no-whole-archive -o SP_CW.exe -Wl,--out-implib,libSP_CW.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SP_CW.dir\linklibs.rsp
+C:\Users\alamo\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\SP_CW.dir/objects.a
+C:\Users\alamo\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\SP_CW.dir/objects.a @CMakeFiles\SP_CW.dir\objects1.rsp
+C:\Users\alamo\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\SP_CW.dir/objects.a -Wl,--no-whole-archive -o SP_CW.exe -Wl,--out-implib,libSP_CW.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SP_CW.dir\linkLibs.rsp
