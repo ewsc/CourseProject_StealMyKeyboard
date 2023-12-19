@@ -4,3 +4,5 @@ project(SP_CW)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(SP_CW main.cpp)
+
+target_link_libraries(SP_CW wininet)

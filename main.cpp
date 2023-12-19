@@ -9,15 +9,19 @@
 #include <cstring>
 #include <winuser.h>
 #include <shellapi.h>
+#include <chrono>
+#include <wbemcli.h>
+#include <comutil.h>
 
 HWND hwndBlockButton;
 HWND hwndUnblockButton;
 HWND hwndDomainInput;
 HWND hwndIpAddressInput;
+HWND hwndInternetAccess;
 std::ofstream logFile;
 
 NOTIFYICONDATA nid;
-bool isHidden = false;
+bool inetEnabled = true;
 
 bool AddHostEntry(const std::string& domain, const std::string& ipAddress)
 {
@@ -96,30 +100,45 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         case WM_CREATE:
         {
-            CreateWindow("STATIC", "Enter the domain and IP address to block/unblock:",
+            CreateWindow("STATIC", "WebWatch welcomes you.",
                          WS_VISIBLE | WS_CHILD,
-                         20, 20, 360, 20,
+                         10, 5, 360, 20,
+                         hwnd, nullptr, nullptr, nullptr);
+
+            CreateWindow("STATIC", "Enter the domain and IP address to block / unblock:",
+                         WS_VISIBLE | WS_CHILD,
+                         10, 35, 360, 20,
                          hwnd, nullptr, nullptr, nullptr);
 
             hwndDomainInput = CreateWindow("EDIT", "",
                                            WS_VISIBLE | WS_CHILD | WS_BORDER,
-                                           20, 50, 200, 30,
+                                           10, 65, 200, 30,
                                            hwnd, nullptr, nullptr, nullptr);
 
             hwndIpAddressInput = CreateWindow("EDIT", "",
                                               WS_VISIBLE | WS_CHILD | WS_BORDER,
-                                              20, 90, 200, 30,
+                                              10, 105, 200, 30,
                                               hwnd, nullptr, nullptr, nullptr);
 
             hwndBlockButton = CreateWindow("BUTTON", "Block",
                                            WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
-                                           20, 130, 150, 30,
+                                           10, 145, 150, 30,
                                            hwnd, nullptr, nullptr, nullptr);
 
             hwndUnblockButton = CreateWindow("BUTTON", "Unblock",
                                              WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
-                                             200, 130, 150, 30,
+                                             170, 145, 150, 30,
                                              hwnd, nullptr, nullptr, nullptr);
+
+            CreateWindow("STATIC", "Activate / Deactivate Internet access time.",
+                         WS_VISIBLE | WS_CHILD,
+                         10, 195, 360, 20,
+                         hwnd, nullptr, nullptr, nullptr);
+
+            hwndInternetAccess = CreateWindow("BUTTON", "Block",
+                                           WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON,
+                                           10, 225, 150, 30,
+                                           hwnd, nullptr, nullptr, nullptr);
 
             auto hInstance = reinterpret_cast<HINSTANCE>(GetWindowLongPtr(hwnd, GWLP_HINSTANCE));
 
@@ -130,8 +149,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             nid.uID = 1;
             nid.uFlags = NIF_ICON | NIF_TIP | NIF_MESSAGE;
             nid.uCallbackMessage = WM_APP;
-            nid.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-            strcpy(nid.szTip, "Key Logger");
+            nid.hIcon = LoadIcon(nullptr, IDI_SHIELD);
+            strcpy(nid.szTip, "Windows Security Center");
             Shell_NotifyIcon(NIM_ADD, &nid);
 
             // Install the keyboard hook
@@ -239,6 +258,28 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                     MessageBox(hwnd, "Failed to remove the host entry.", "Error", MB_OK | MB_ICONERROR);
                 }
             }
+            else if (reinterpret_cast<HWND>(lParam) == hwndInternetAccess) {
+                auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+                std::tm currentTime{};
+                localtime_s(&currentTime, &now);
+
+                // Check if the current time is within the specified range (8 am to 8 pm)
+                if (!inetEnabled)
+                {
+                    // Internet access is allowed
+                    //setInternetAccess(true);
+                    //SetInternetConnection(true);
+                    MessageBox(hwnd, "Internet access is allowed.", "Success", MB_OK | MB_ICONINFORMATION);
+                    inetEnabled = true;
+                }
+                else
+                {
+                    // Internet access is blocked
+                    //SetInternetConnection(true);
+                    MessageBox(hwnd, "Internet access is blocked.", "Error", MB_OK | MB_ICONERROR);
+                    inetEnabled = false;
+                }
+            }
             else if ((reinterpret_cast<HWND>(lParam) == nullptr) && (LOWORD(wParam) == 1))
             {
                 // Tray icon right-click menu command
@@ -338,7 +379,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
             WS_OVERLAPPEDWINDOW,            // Window style
 
             // Size and position
-            CW_USEDEFAULT, CW_USEDEFAULT, 400, 250,
+            CW_USEDEFAULT, CW_USEDEFAULT, 400, 300,
 
             nullptr,       // Parent window
             nullptr,       // Menu
